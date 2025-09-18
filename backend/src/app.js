@@ -16,9 +16,16 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 app.use(helmet());
+// app.use(
+//   cors({
+//     origin: true,
+//     credentials: true,
+//   })
+// );
+
 app.use(
   cors({
-    origin: true,
+    origin: process.env.FRONTEND_URL || "http://localhost:5173", // Configure CORS for your frontend
     credentials: true,
   })
 );

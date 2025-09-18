@@ -4,7 +4,10 @@ import app from "./app.js";
 import connectDB from "./config/db.js";
 import logger from "./config/logger.js";
 
-const PORT = process.env.PORT || 7000;
+import dotenv from "dotenv";
+dotenv.config();
+
+const PORT = process.env.PORT || 5000;
 
 async function start() {
   try {

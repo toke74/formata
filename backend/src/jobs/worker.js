@@ -2,7 +2,10 @@
  * Minimal worker that polls ExportJob collection for 'queued' jobs and processes them.
  * In production, replace with queue (Bull/BullMQ) and distributed workers.
  */
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+
 import connectDB from "../config/db.js";
 import ExportJob from "../models/ExportJob.model.js";
 import Project from "../models/Project.model.js";
