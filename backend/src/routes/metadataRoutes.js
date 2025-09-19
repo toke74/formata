@@ -1,12 +1,13 @@
 import express from "express";
-import { importDocx } from "../controllers/editorController.js";
+import { uploadCover } from "../controllers/metadataController.js";
 // import { protect } from "../middlewares/authMiddleware.js";
 import upload from "../middlewares/uploadMiddleware.js";
+
 import { requireAuth } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-// POST /api/v1/editor/import-docx
-router.post("/import-docx", requireAuth, upload.single("file"), importDocx);
+router.use(requireAuth);
+router.post("/upload-cover", upload.single("file"), uploadCover);
 
 export default router;

@@ -1,8 +1,11 @@
+// import MetadataForm from "./features/metadata/MetadataForm";
+import Editor from "./pages/Editor";
 function App() {
   return (
     <>
       <div>
-        <h1 className="text-red-400 font-medium">Hello World</h1>
+        {/* <MetadataForm /> */}
+        <Editor />
       </div>
     </>
   );

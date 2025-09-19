@@ -5,11 +5,11 @@ import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
 import morgan from "morgan";
+// import logger from "./config/logger.js";
 
+//Local files
 import apiRoutes from "./routes/index.js";
 import errorHandler from "./middlewares/errorHandler.js";
-import logger from "./config/logger.js";
-import editorRoutes from "./routes/editorRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -40,7 +40,6 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 
 // mount API routes
 app.use("/api/v1", apiRoutes);
-app.use("/api/v1/editor", editorRoutes);
 
 // health
 app.get("/health", (req, res) => res.json({ status: "ok" }));

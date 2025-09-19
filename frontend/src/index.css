@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+.prose h1,
+.prose h2 {
+  text-align: center;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.prose p:first-of-type::first-letter {
+  font-size: 2.5rem;
+  font-weight: bold;
+  float: left;
+  margin-right: 0.2rem;
+  line-height: 1;
+}
+
+.prose blockquote {
+  font-style: italic;
+  border-left: 4px solid #6366f1;
+  padding-left: 1rem;
+}

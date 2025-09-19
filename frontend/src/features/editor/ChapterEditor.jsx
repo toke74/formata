@@ -1,32 +1,40 @@
 import { useSelector, useDispatch } from "react-redux";
 import { updateChapter, setPreviewHtml } from "./editorSlice";
 import { useEffect } from "react";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import MenuBar from "./EditorMenuBar";
 
 const ChapterEditor = () => {
   const dispatch = useDispatch();
   const { chapters, currentChapterId } = useSelector((s) => s.editor);
   const chapter = chapters.find((c) => c.id === currentChapterId);
 
-  const handleChange = (e) => {
-    dispatch(updateChapter({ id: chapter.id, content: e.target.value }));
-  };
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: chapter?.content || "",
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      dispatch(updateChapter({ id: chapter.id, content: html }));
+      dispatch(setPreviewHtml(html));
+    },
+  });
 
-  // Simple preview (markdown parser or HTML safe preview later)
+  // Load chapter content when switching chapters
   useEffect(() => {
-    if (chapter) {
-      dispatch(setPreviewHtml(chapter.content));
+    if (editor && chapter) {
+      editor.commands.setContent(chapter.content || "");
     }
-  }, [chapter?.content, dispatch]);
+  }, [chapter, editor]);
 
   if (!chapter) return <div className="p-4">No chapter selected</div>;
 
   return (
-    <div className="flex-1 p-4">
-      <textarea
-        value={chapter.content}
-        onChange={handleChange}
-        className="w-full h-full border p-3 rounded resize-none font-mono text-sm"
-      />
+    <div className="flex-1 flex flex-col">
+      <MenuBar editor={editor} />
+      <div className="flex-1 overflow-y-auto border rounded m-2">
+        <EditorContent editor={editor} className="p-4 prose prose-indigo" />
+      </div>
     </div>
   );
 };
